@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="pSouborTrace">oks-01-log-trace.txt</Property>
+    <Property name="pSouborInfo">oks-01-log-info.txt</Property>
+    <Property name="pSouborDebug">oks-01-log-debug.txt</Property>
+    <Property name="pVypis">[%level - %logger{2}.%M()] - %msg%n</Property>
+  </Properties>
+
+
+  <Appenders>
+    <Console name="obrazovka" target="SYSTEM_OUT">
+      <PatternLayout pattern="${pVypis}"/>
+    </Console>
+
+    <File name="aSouborTrace" fileName="${pSouborTrace}" append="false" immediateFlush="true">
+      <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="ACCEPT"/>
+      <PatternLayout pattern="${pVypis}"/>
+    </File>
+
+    <File name="aSouborInfo" fileName="${pSouborInfo}" append="true" immediateFlush="true">
+      <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="${pVypis}"/>
+    </File>
+
+    <File name="aSouborDebug" fileName="${pSouborDebug}" append="false" immediateFlush="true">
+      <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="${pVypis}"/>
+    </File>
+  </Appenders>
+
+
+  <Loggers>
+    <Root level="ALL">
+      <!-- <AppenderRef ref="obrazovka"/> -->
+      <AppenderRef ref="aSouborInfo"/>
+    </Root>
+
+    <logger name="OsobniCislo" level="TRACE">
+      <AppenderRef ref="aSouborTrace"/>
+      <AppenderRef ref="aSouborDebug"/>
+    </logger>
+
+    <logger name="Generator" level="DEBUG">
+      <AppenderRef ref="aSouborDebug"/>
+    </logger>
+
+  </Loggers>
+</Configuration>
