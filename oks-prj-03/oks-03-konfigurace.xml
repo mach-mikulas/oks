@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="pSoubor">oks-03-log.txt</Property>
+        <Property name="pVypis">[%level] - %msg%n</Property>
+    </Properties>
+
+
+    <Appenders>
+
+        <File name="aSoubor" fileName="${pSoubor}" append="false" immediateFlush="true">
+            <PatternLayout pattern="${pVypis}"/>
+        </File>
+
+    </Appenders>
+
+
+    <Loggers>
+        <Root level="ALL">
+            <AppenderRef ref="aSoubor"/>
+        </Root>
+
+    </Loggers>
+</Configuration>
